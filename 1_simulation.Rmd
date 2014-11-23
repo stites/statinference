@@ -94,7 +94,7 @@ abline(0,1, col = "red")
 
 ### Appendix
 
-``` {r}
+``` {r, echo=TRUE, fig.keep='none'}
 # Part 3
 means <- colMeans(simulation)
 makeHist<-function(data, title){
