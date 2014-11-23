@@ -2,7 +2,7 @@
 set.seed(7)
 n             <-   40
 lambda        <-  0.2
-nsimulations <- 1000
+nsimulations  <- 1000
 
 simulation    <- replicate(n = nsimulations,
                            expr = rexp(n,lambda))
