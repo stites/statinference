@@ -77,6 +77,7 @@ Taking a look at quantile-to-quantile comparisons, we see that our expectations 
 ``` {r, echo=FALSE, fig.width = 3, fig.height = 3}
 qqnorm(means,
        col = "blue",
+ylab="Mean Quantiles",
 main="normal QQ
 with means");
 qqline(means, col = "red")
@@ -85,6 +86,8 @@ qqplot(rexp(1000, rate=lambda),
        simulation,
        col = "blue",
 main="exponential QQ
-with simulations")
+with simulations",
+xlab="Theoretical Quantiles",
+ylab="Simulation Quantiles")
 abline(0,1, col = "red")
 ```
