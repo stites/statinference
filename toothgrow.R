@@ -34,7 +34,39 @@ t.test(len ~ supp, data = toothgrowth)
 # yeilds a 95% confidence interval around [-0.171, 7.571], with a p-value of 0.06063.
 # in this scenario, we would not reject this null hypothesis. Note, however, that
 # a slight decrease in confidence - of 90% — would yield a confidence interval of
-# [0.468, 6.932] in which case we would reject the null hypothesis. For the purposes
-# of this study, we'll continue to accept the null but will keep this difference in
-# mind for future studies.
+# [0.468, 6.932] meaning that we will probably need to drill down a little deeper
+# into the data.
 t.test(len ~ supp, data = toothgrowth, conf.level = 0.9)
+
+# =======
+# Hypothesis tests: Per-dose
+# Ho = lenOJ == lenVC;  Ha = lenOJ != lenVC
+
+# Test of OJ vs VC at dose of 0.5
+doseVal = 0.5
+t.test(len ~ supp, data = toothgrowth[toothgrowth$dose == doseVal,])
+# p-val: 0.006359
+# conf.int: [1.719057, 8.780943]
+# reject null? yes, in positive direction (oj is more effective)
+
+# Test of OJ vs VC at dose of 1.0
+doseVal = 1.0
+t.test(len ~ supp, data = toothgrowth[toothgrowth$dose == doseVal,])
+# p-val: 0.001038
+# conf.int: [2.802148, 9.057852]
+# reject null? yes, in positive direction (oj is more effective)
+
+# Test of OJ vs VC at dose of 2.0
+doseVal = 2.0
+t.test(len ~ supp, data = toothgrowth[toothgrowth$dose == doseVal,])
+# p-val: 0.9639
+# conf.int: [-3.79807, 3.63807]
+# reject null? no
+
+# Upon further inquiry, we find that at high doses of 2.0mg — there seems to
+# be no difference between the two methods. However at lower doses of 0.5 and
+# 1.0, orange juice is more effective at increasing tooth length in guinea
+# pigs according to our findings. Technical assumptions made include that
+# the variances are unequal - not enough information is provided to assume
+# otherwise, and that each observation was independent - from the description
+# in cran it isn't entirely clear that this is the case.
