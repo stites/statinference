@@ -1,0 +1,64 @@
+---
+title: "Simulation Exercise"
+author: "Sam Stites"
+date: "November 22, 2014"
+output: pdf_document
+---
+
+### Question
+The exponential distribution can be simulated in R with `rexp(n, lambda)` where lambda is the rate parameter. The mean of exponential distribution is `1/lambda` and the standard deviation is also also `1/lambda`. Set `lambda = 0.2` for all of the simulations. In this simulation, you will investigate the distribution of averages of 40 exponentials. Note that you will need to do a thousand or so simulated averages of 40 exponentials.
+
+Illustrate via simulation and associated explanatory text the properties of the distribution of the mean of 40 exponentials.  You should
+
+1. Show where the distribution is centered at and compare it to the theoretical center of the distribution.
+2. Show how variable it is and compare it to the theoretical variance of the distribution.
+3. Show that the distribution is approximately normal.
+
+Note that for point 3, focus on the difference between the distribution of a large collection of random exponentials and the distribution of a large collection of averages of 40 exponentials.
+
+### Part 1
+
+Given the following criteria:
+
+```{r}
+set.seed(7)
+n             <-   40
+lambda        <-  0.2
+nsimultations <- 1000
+simulation    <- replicate(n = nsimultations,
+                           expr = rexp(n,lambda))
+```
+
+We see that there the simulated distribution of means is centered around 4.983294:
+
+```{r}
+mean(simulation)
+#=> [1] 4.983294
+```
+
+Very close to the exponential distribution's theoretical mean, `1/lamdba`, for a lambda of `0.2`:
+
+```{r}
+1/lambda
+#=> [1] 5
+```
+
+### Part 2
+
+Similarly, the standard deviation of the theoretical distribution is also `1/lambda`, `5` for a lambda of 0.2, which is also quite close to the simulated standard of deviatiation:
+
+```{r}
+sd(simulation)
+#=> [1] 4.984027
+```
+
+### Part 3
+
+3. Show that the distribution is approximately normal.
+Note that for point 3, focus on the difference between the distribution of a large collection of random exponentials and the distribution of a large collection of averages of 40 exponentials.
+
+
+```{r, echo = FALSE}
+hist(simulation)
+hist(colMeans(simulation))
+```
