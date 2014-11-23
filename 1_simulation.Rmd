@@ -4,7 +4,6 @@ author: "Sam Stites"
 date: "November 22, 2014"
 output: pdf_document
 ---
-
 ### Question
 The exponential distribution can be simulated in R with `rexp(n, lambda)` where lambda is the rate parameter. The mean of exponential distribution is `1/lambda` and the standard deviation is also also `1/lambda`. Set `lambda = 0.2` for all of the simulations. In this simulation, you will investigate the distribution of averages of 40 exponentials. Note that you will need to do a thousand or so simulated averages of 40 exponentials.
 
@@ -19,7 +18,6 @@ Note that for point 3, focus on the difference between the distribution of a lar
 ### Part 1
 
 Given the following criteria:
-
 ```{r}
 set.seed(7)
 n             <-   40
@@ -53,12 +51,40 @@ sd(simulation)
 ```
 
 ### Part 3
+Given the dataset, we can see that the distribution of a large collection of random exponentials takes on an exponential distribution and that the distribution of the large collection of averages of 40 exponentials takes on an approximate normal distribution — as would be expected by the central limit theorem. Below are plots of the data and their respective densities - to see the generating functions, look at the appendix.
 
-3. Show that the distribution is approximately normal.
-Note that for point 3, focus on the difference between the distribution of a large collection of random exponentials and the distribution of a large collection of averages of 40 exponentials.
+``` {r, echo=FALSE, fig.width = 3, fig.height = 3}
+means <- colMeans(simulation)
+makeHist<-function(data, title){
+  hist(data,
+       freq=FALSE,
+       col = "light blue",
+       breaks=20,
+       main=title)
+  lines(density(data), col = "red")
+}
+makeHist(means,
+"Dist. of large
+collection of means for
+40 exponentials")
+makeHist(simulation,
+"Dist. of large
+collection of random
+exponentials")
+```
 
-
-```{r, echo = FALSE}
-hist(simulation)
-hist(colMeans(simulation))
+Taking a look at quantile-to-quantile comparisons, we see that our expectations are accurate:
+``` {r, echo=FALSE, fig.width = 3, fig.height = 3}
+qqnorm(means,
+       col = "blue",
+main="normal QQ
+with means");
+qqline(means, col = "red")
+# compare simulations to the exponential distributions
+qqplot(rexp(1000, rate=lambda),
+       simulation,
+       col = "blue",
+main="exponential QQ
+with simulations")
+abline(0,1, col = "red")
 ```
