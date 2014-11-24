@@ -1,7 +1,8 @@
 # Part 1
+library(datasets)
 data(ToothGrowth)
 toothgrowth <- transform(ToothGrowth, supp = factor(supp))
-summary(toothgrow) # not great...
+summary(toothgrowth) # not great...
 boxplot(len ~ dose * supp,
         toothgrowth,
         col  = "lightblue",
